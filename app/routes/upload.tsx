@@ -1,15 +1,29 @@
 import { useState, type FormEvent } from "react";
+import FileUploader from "~/components/FileUploader";
 import Navbar from "~/components/Navbar";
 
 const Upload = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [statusText, setStatusText] = useState("");
+  const [file, setFile] = useState<File | null>(null);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {};
+  const handleFileSelect = (file: File | null) => {
+    setFile(file);
+  };
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget.closest("form");
+    if (!form) return;
+    const formData = new FormData(form);
+
+    const companyName = formData.get("company-name");
+    const jobTitle = formData.get("job-title");
+    const jobDescription = formData.get("job-description");
+  };
 
   return (
     <main className="bg-[url('/images/bg-main.svg')] bg-cover">
-      <Navbar></Navbar>
+      <Navbar />
 
       <section className="main-section">
         <div className="page-heading py-16">
@@ -17,14 +31,10 @@ const Upload = () => {
           {isProcessing ? (
             <>
               <h2>{statusText}</h2>
-              <img
-                src="/images/resume-scan.gif"
-                alt="resume scanned"
-                className="w-full"
-              />
+              <img src="/images/resume-scan.gif" className="w-full" />
             </>
           ) : (
-            <h2>Drop your resume for an ATS score and improvement tips </h2>
+            <h2>Drop your resume for an ATS score and improvement tips</h2>
           )}
           {!isProcessing && (
             <form
@@ -54,18 +64,20 @@ const Upload = () => {
                 <label htmlFor="job-description">Job Description</label>
                 <textarea
                   rows={5}
-                  className="resize-none"
                   name="job-description"
                   placeholder="Job Description"
                   id="job-description"
                 />
               </div>
+
               <div className="form-div">
                 <label htmlFor="uploader">Upload Resume</label>
-                <div>Uploader</div>
+                <FileUploader onFileSelect={handleFileSelect} />
               </div>
 
-              <button type="submit">Analyze Resume</button>
+              <button className="primary-button" type="submit">
+                Analyze Resume
+              </button>
             </form>
           )}
         </div>
@@ -73,5 +85,4 @@ const Upload = () => {
     </main>
   );
 };
-
 export default Upload;
