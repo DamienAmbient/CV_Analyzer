@@ -86,7 +86,7 @@ const Resume = () => {
             </div>
           ) : (
             <img
-              src="/images/resume-scan2.gif"
+              src="/images/resume-scan-2.gif"
               className="w-full"
               alt="resume-scanning"
             ></img>
