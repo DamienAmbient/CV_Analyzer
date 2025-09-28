@@ -3,10 +3,9 @@ import Navbar from "~/components/Navbar";
 import FileUploader from "~/components/FileUploader";
 import { usePuterStore } from "~/lib/puter";
 import { useNavigate } from "react-router";
-
+import { convertPdfToImage } from "~/lib/pdf2image";
 import { generateUUID } from "~/lib/utils";
 import { prepareInstructions } from "../../constants";
-import { convertPdfToImage } from "~/lib/pdf2image";
 
 const Upload = () => {
   const { auth, isLoading, fs, ai, kv } = usePuterStore();

@@ -1,4 +1,5 @@
-import ScoreGauge from "./ScoreGauge";
+import ScoreGauge from "~/components/ScoreGauge";
+import ScoreBadge from "~/components/ScoreBadge";
 
 const Category = ({ title, score }: { title: string; score: number }) => {
   const textColor =
@@ -12,6 +13,7 @@ const Category = ({ title, score }: { title: string; score: number }) => {
       <div className="category">
         <div className="flex flex-row items-center gap-2 justify-center">
           <p className="text-2xl">{title}</p>
+          <ScoreBadge score={score}></ScoreBadge>
         </div>
       </div>
       <p className="text-2xl">
